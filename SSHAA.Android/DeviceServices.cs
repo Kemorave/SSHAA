@@ -16,7 +16,7 @@ namespace SSHAA.Droid
     public class DeviceServices : IDeviceServices
     { 
         public DeviceServices()
-        {
+        { 
             //Environment.
         }
         public string GetDeviceName()
