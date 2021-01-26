@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+ xmlns="http://xamarin.com/schemas/2014/forms"
+ xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+ xmlns:vm="clr-namespace:SSHAA.VM"
+ xmlns:sshaa="clr-namespace:SSHAA"
+ xmlns:local="clr-namespace:SSHAA"
+ BindingContext="{Static vm:AppData.Instance}"
+ IsBusy="{Binding Path=IsBusy,Mode=OneWay}"
+             x:Class="SSHAA.View.LoadingView"
+             BackgroundColor="{StaticResource   SupBackground}">
+ <ContentPage.Content>
+ 
+  <StackLayout
+    VerticalOptions="Center"
+    HorizontalOptions="Center"
+    Padding="20">
+    <Image HeightRequest="60"
+     Source="ssh.png" />
+    <Label
+     Text="SSH"
+     TextColor="#13B9C3"
+     HorizontalOptions="Center"
+     FontSize="Large"
+      />
+    <Button
+     x:Name="RetryButton"
+     Clicked="Retry"
+     IsVisible="False"
+     Text="Retry connecting"
+     Margin="10" />
+   <ActivityIndicator IsRunning="{Binding Path=IsBusy,Mode=OneWay}"/>
+  </StackLayout>
+ 
+ </ContentPage.Content>
+</ContentPage>

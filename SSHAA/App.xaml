@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:SSHAA.Converters"
+             x:Class="SSHAA.App">
+
+
+ <Application.Resources>
+  <ResourceDictionary>
+   <!--#region Colors -->
+   <Color x:Key="LowAccent">
+    #6c5ce7</Color>
+
+   <Color x:Key="Accent">
+    #dfe6e9</Color>
+
+   <Color x:Key="SupBackground">
+    #384244</Color>
+
+   <Color x:Key="BarBackground">
+    #566B82</Color>
+
+   <Color x:Key="Background">
+    #6c5ce7</Color>
+
+   <Color x:Key="Text">
+    #dfe6e9</Color>
+   <!--#endregion-->
+
+   <!--#region Converters -->
+   <converters:ReverseBool x:Key="ReverseBool" />
+   <!--#endregion-->
+   <!--#region Styles -->
+   <Style TargetType="ContentPage"
+          ApplyToDerivedTypes="True">
+    <Setter Property="BackgroundColor"
+            Value="{StaticResource Background}" />
+   </Style>
+   <Style TargetType="NavigationPage"
+          ApplyToDerivedTypes="True">
+    <Setter Property="BackgroundColor"
+            Value="{StaticResource Background}" />
+    <Setter Property="BarBackgroundColor"
+            Value="{StaticResource BarBackground}" />
+    <Setter Property="BarTextColor"
+            Value="{StaticResource Accent}" />
+   </Style>
+   <Style TargetType="Image">
+    <Setter Property="Margin"
+            Value="5" />
+    <Setter Property="IsOpaque"
+            Value="True" />
+   </Style>
+   <Style TargetType="ImageButton">
+    <Setter Property="IsOpaque"
+            Value="True" />
+   </Style>
+   <Style TargetType="Label">
+    <Setter Property="TextColor"
+            Value="{StaticResource Text}" />
+   </Style>
+   <Style TargetType="Entry"
+          ApplyToDerivedTypes="True">
+    <Setter Property="TextColor"
+            Value="{StaticResource Text}" />
+   </Style>
+   <Style TargetType="Button">
+    <Setter Property="TextColor"
+            Value="{StaticResource Accent}" />
+    <Setter Property="BackgroundColor"
+            Value="{StaticResource BarBackground}" />
+    <Setter Property="BorderColor"
+            Value="{StaticResource  SupBackground}" />
+    <Setter Property="BorderWidth"
+            Value="1" />
+    <Setter Property="VerticalOptions"
+            Value="Center" />
+    <Setter Property="HorizontalOptions"
+            Value="Center" />
+    <Setter Property="Padding"
+            Value="20,0" />
+   </Style>
+   <Style TargetType="ListView"
+          ApplyToDerivedTypes="True">
+    <Setter Property="HeaderTemplate">
+     <DataTemplate>
+      <Label Text="{Binding}"
+             TextColor="{StaticResource Text}"
+             Margin="5"
+             FontSize="Medium" />
+     </DataTemplate>
+    </Setter>
+    <Setter Property="FooterTemplate">
+     <DataTemplate>
+      <Label Text="{Binding}"
+             Margin="8"
+             TextColor="{StaticResource Text}"
+             FontSize="Medium" />
+     </DataTemplate>
+    </Setter>
+    <Setter Property="HasUnevenRows"
+            Value="True" />
+   </Style>
+
+   <!--#endregion-->
+
+  </ResourceDictionary>
+ </Application.Resources>
+</Application>

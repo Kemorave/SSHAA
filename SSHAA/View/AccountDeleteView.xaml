@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:SSHAA.VM"
+             BindingContext="{Static vm:AppData.Instance}"
+             IsBusy="{Binding Path=IsBusy,Mode=OneWay}"
+             x:Class="SSHAA.View.AccountDeleteView">
+ <ContentPage.Content>
+  <ScrollView>
+   <StackLayout>
+    <Image Margin="5"
+           HeightRequest="50"
+           Source="usersettings" />
+    <Label Text="{Binding Path=CurrentLoginInfo.PersonName,TargetNullValue='Unkown'}"
+           HorizontalTextAlignment="Center"
+           TextColor="{StaticResource Accent }"
+           FontSize="Large" />
+    <Label Text="{Binding Path=CurrentLoginInfo.Email,TargetNullValue='None'}"
+           HorizontalTextAlignment="Center"
+           TextColor="{StaticResource Accent }"
+           FontSize="Large" />
+    <ActivityIndicator IsRunning="{Binding Path=IsBusy,Mode=OneWay}" />
+
+    <StackLayout Padding="5"
+                 BackgroundColor="{StaticResource BarBackground}">
+     <Image HeightRequest="40"
+            Source="warning" />
+     <Label TextColor="Orange"
+            Text="We offer no refunds or cash back services deleting your account will resolve all reservations and data " />
+     <Label  Text="{Binding Path=AvailableReservations.Count,StringFormat='Current active reservations number is {0}',FallbackValue='Active reservations 0'}"
+            FontAttributes="Bold" />
+     <Label Text="If you still wish to continue please enter account password :" />
+     <Entry  x:Name="password"
+             HorizontalTextAlignment="Center"
+             IsPassword="True"
+             HorizontalOptions="Center"
+             WidthRequest="300" />
+     <Button IsEnabled="{Binding IsBusy,Mode=OneWay,Converter={StaticResource ReverseBool}}"
+             x:Name="ConfirmButton"
+             Clicked="TryDelete"
+             Margin="20"
+             BackgroundColor="Red"
+             BorderColor="Black"
+             Text=" Confirm " />
+    </StackLayout>
+   </StackLayout>
+  </ScrollView>
+ </ContentPage.Content>
+</ContentPage>

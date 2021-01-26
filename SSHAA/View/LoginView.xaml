@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:SSHAA"
+             xmlns:vm="clr-namespace:SSHAA.VM"
+             BindingContext="{Static vm:AppData.Instance }"
+             IsBusy="{Binding IsBusy,Mode=OneWay}"
+             Title="Login"
+             x:Class="SSHAA.View.LoginView">
+ <ContentPage.ToolbarItems>
+  <ToolbarItem Text="Exit"
+               Clicked="Exit" />
+ </ContentPage.ToolbarItems>
+ <ContentPage.Content>
+  <StackLayout   IsVisible="{Binding Path=IsLoggedIn,Mode=OneWay,Converter={StaticResource Key=ReverseBool}}"
+                 IsEnabled="{Binding IsBusy,Mode=OneWay,Converter={StaticResource Key=ReverseBool}}"
+                 BackgroundColor="{StaticResource  SupBackground}" >
+   <StackLayout  BackgroundColor="{StaticResource Key=BarBackground}"
+                 Orientation="Horizontal" Margin="0,0,0,10"  >
+    <Image Source="ssh.png"
+           HeightRequest="40" />
+    <Label Text="SSH"
+           VerticalOptions="Center" />
+   </StackLayout>
+  <Image Source="login.png"  
+          HeightRequest="50" Margin="0"  />
+   <Label Text="Login"
+          HorizontalOptions="Center" />
+
+   <ActivityIndicator MinimumHeightRequest="40"
+                      VerticalOptions="Center"
+                      Color="{StaticResource Accent}"
+                      HorizontalOptions="Center"
+                      MinimumWidthRequest="40"
+                      IsRunning="{Binding Path=IsBusy,Mode=OneWay}" />
+
+   <StackLayout IsEnabled="{Binding Path=IsBusy,Converter={StaticResource ReverseBool},Mode=OneWay}"
+                Margin="20,0,20,20">
+
+     <Label Text="Email" />
+     <Entry ReturnType="Next"
+            Keyboard="Email"
+            x:Name="EmailBox"
+            Text="@" />
+     <Label Text="Password" />
+     <Entry ReturnType="Next"
+            Keyboard="Text"
+            IsPassword="True" 
+            x:Name="PasswordBox" />
+     <StackLayout Orientation="Horizontal">
+      <Button Text="Login"
+             IsEnabled="{Binding Path=IsBusy,Converter={StaticResource ReverseBool},Mode=OneWay}"
+             Clicked="TryLogin"
+              Margin="0,0,10,0" />
+      <Button Text="Register"
+             IsEnabled="{Binding Path=IsBusy,Converter={StaticResource ReverseBool},Mode=OneWay}"
+             Clicked="Register" />
+     </StackLayout>
+    </StackLayout>
+  
+  </StackLayout>
+ </ContentPage.Content>
+</ContentPage>

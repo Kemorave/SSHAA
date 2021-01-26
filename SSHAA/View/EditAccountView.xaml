@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:vm="clr-namespace:SSHAA.VM"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             BindingContext="{Static vm:AppData.Instance}"
+             x:Name="Page"
+          Title="Updating account"   x:Class="SSHAA.View.EditAccountView">
+ <ContentPage.Content>
+  <ScrollView>
+   <StackLayout>
+    <Image Margin="5"
+           HeightRequest="50"
+           Source="usersettings" />
+    <Label Text="{Binding Path=CurrentLoginInfo.PersonName,FallbackValue=' Name'}"
+           HorizontalTextAlignment="Center"
+           TextColor="{StaticResource Accent }"
+           FontSize="Large" />
+    <ActivityIndicator  IsVisible="{Binding Path=IsBusy,Mode=OneWay}"
+                        IsRunning="{Binding Path=IsBusy,Mode=OneWay}"
+                        Color="{StaticResource Accent}" />
+    <StackLayout BindingContext="{Binding Source={Reference Page},Path=Model,Mode=OneWay}"
+                 BackgroundColor="{StaticResource  BarBackground}"
+                 Padding="20,10,20,20">
+     <Label Text="New Name" />
+     <Entry x:Name="NameBox"
+            Keyboard="Text"
+            Text="{Binding Path=PersonName,Mode=TwoWay}"
+            ReturnType="Next" />
+     <Label Text="New Email" />
+     <Entry x:Name="EmailBox"
+            Text="{Binding Path=Email,Mode=TwoWay}"
+            Keyboard="Email"
+            ReturnType="Next" />
+     <Label Text="New Password (leave empty to keep old password)" />
+     <Entry x:Name="PasswordBox"
+            Keyboard="Text"
+            IsPassword="True"
+            Text="{Binding Path=Password,Mode=OneWayToSource}"
+            ReturnType="Next" />
+     <Label Text="Re enter password" />
+     <Entry x:Name="PasswordVerificationBox"
+            Keyboard="Text"
+           IsPassword="True" 
+            ReturnType="Done" />
+     <Label  Text="Confirm change with your current password"
+            TextColor="Orange" />
+     <Entry x:Name="CurrentPasswordVerificationBox"
+            Keyboard="Text"
+            IsPassword="True" 
+            ReturnType="Done" />
+     <Button Clicked="TryChange"
+             BindingContext="{Static vm:AppData.Instance}"
+             BackgroundColor="{StaticResource  Background}"
+             BorderColor="{StaticResource Accent}"
+             Margin="0,10"
+             IsEnabled="{Binding Path=IsBusy,Mode=OneWay,Converter={StaticResource ReverseBool}}"
+             Text="Confirm"
+             HorizontalOptions="Start" />
+    </StackLayout>
+   </StackLayout>
+  </ScrollView>
+ </ContentPage.Content>
+</ContentPage>

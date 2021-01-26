@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SSHAA.View.ReservationsView"
+             BindingContext="{Static vm:AppData.Instance}"
+             xmlns:vm="clr-namespace:SSHAA.VM"
+             xmlns:local="clr-namespace:SSHAA"
+             IsBusy="{Binding Path=IsLoadingResrvations,Mode=OneWay}">
+ <ContentPage.ToolbarItems>
+  <ToolbarItem Text="Book a room"
+               Clicked="BookARoom"
+               Icon="add" />
+  <ToolbarItem Text="Refresh"
+               Icon="refresh"
+               Command="{Binding Path=RefreshReservationsCommand}" />
+ </ContentPage.ToolbarItems>
+ <ContentPage.Content>
+  <Grid    BackgroundColor="{StaticResource Key=SupBackground}">
+
+   <ListView IsPullToRefreshEnabled="True"
+             ItemTapped="OnReservationTapped"
+             x:Name="ReservationsList"
+             ItemsSource="{Binding Reservations}"
+             IsRefreshing="{Binding IsLoadingResrvations,Mode=OneWay}"
+             RefreshCommand="{Binding RefreshReservationsCommand}"
+             Header="All reservations"
+             Footer="{Binding Path=Reservations.Count,StringFormat='{}{0} Reservation/s',FallbackValue='No Reservations '}"
+             SelectionMode="None">
+    <ListView.ItemTemplate>
+     <DataTemplate>
+      <ViewCell>
+       <ViewCell.ContextActions>
+        <MenuItem Text="Show"
+                  Icon="info"
+                  Clicked="ShowReservation" />
+        <MenuItem Text="Delete"
+                  IsDestructive="True"
+                  Icon="delete"
+                  Clicked="DeleteReservation" />
+       </ViewCell.ContextActions>
+       <ViewCell.View>
+        <StackLayout Padding="5"
+                     BackgroundColor="#33000000"
+                     Orientation="Horizontal">
+         <Image HorizontalOptions="Center"
+                IsVisible="{Binding Path=IsAvailable,FallbackValue={x:Type x:Boolean},Mode=OneWay}"
+                HeightRequest="70"
+                Source="date.png" />
+         <Image HorizontalOptions="Center"
+                HeightRequest="70"
+                IsVisible="{Binding Path=IsAvailable,Mode=OneWay,Converter={StaticResource Key=ReverseBool}}"
+                Source="expired.png" />
+         <StackLayout>
+          <Label Text="{Binding Path=ID,Mode=OneWay,StringFormat='{}Reservation {0}',FallbackValue='Reservation'}" />
+          <Label Text="{Binding Path=Room_Id,Mode=OneWay,StringFormat='{}Room {0}',FallbackValue='Room'}" />
+          <Label Text="{Binding Path=Days,Mode=OneWay,StringFormat='{}For {0} days',FallbackValue='Room'}" />
+          <Label FontSize="Micro"
+                 Text="{Binding Path=StartDate,Mode=OneWay,StringFormat='{}Booked on {0}',FallbackValue='On 2010/15/4 5:50:10'}" />
+           <Label TextColor="GreenYellow"
+                 FontSize="Small"
+                 Text="{Binding Path=TotalPrice,Mode=OneWay,StringFormat='{}{0}$',FallbackValue='Total of 120$'}" />
+         </StackLayout>
+        </StackLayout>
+
+       </ViewCell.View>
+      </ViewCell>
+     </DataTemplate>
+    </ListView.ItemTemplate>
+   </ListView>
+   <StackLayout IsVisible="{Binding Path=Reservations.HasItems,Converter={StaticResource ReverseBool}}"
+                Padding="10"
+                BackgroundColor="{StaticResource  BarBackground}"
+                VerticalOptions="Center">
+    <Image Source="emptyreservations.png"
+           HeightRequest="150" />
+    <Label HorizontalTextAlignment="Center"
+           FontSize="Medium"
+           Text="No reservations history yet"
+           FontAttributes="Bold" />
+   </StackLayout>
+
+  </Grid>
+ </ContentPage.Content>
+</ContentPage>

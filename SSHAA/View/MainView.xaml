@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:vm="clr-namespace:SSHAA.VM"
+             BindingContext="{Static vm:AppData.Instance}"
+             IsBusy="{Binding Path=IsBusy,Mode=OneWay}"
+             xmlns:local="clr-namespace:SSHAA"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:view="clr-namespace:SSHAA.View"
+             x:Class="SSHAA.View.MainView">
+ <ContentPage.ToolbarItems>
+  <ToolbarItem Text="Hotel informations "
+               Icon="navigation"
+               Clicked="ShowInfoPage"
+               Order="Primary" />
+  <ToolbarItem Text="Edit account"
+               Icon="usersettings"
+               Clicked="EditAccount"
+               Order="Secondary" />
+  <ToolbarItem Text="Delete account"
+               Icon="usersettings"
+               Clicked="DeleteAccount"
+               Order="Secondary"
+               IsDestructive="True" />
+  <ToolbarItem Text="Logut"
+               Icon="usersettings"
+               Clicked="Logout"
+               Order="Secondary"
+               IsDestructive="True" />
+  <ToolbarItem Text="Refresh"
+               Icon="refresh"
+               Order="Primary"
+               Command="{Binding RefreshReservationsCommand}" />
+ </ContentPage.ToolbarItems>
+ <ContentPage.Content>
+  <Grid>
+   <Grid.RowDefinitions>
+    <RowDefinition Height="Auto" />
+    <RowDefinition />
+   </Grid.RowDefinitions>
+   <StackLayout>
+    <Label Text="{Binding Path=CurrentLoginInfo.PersonName,FallbackValue='Name',TargetNullValue='Unkown'}"
+           HorizontalTextAlignment="Center"
+           TextColor="{StaticResource Accent }"
+           FontSize="Large" />
+    <Label Text="{Binding Path=CurrentLoginInfo.Email,FallbackValue='Email',TargetNullValue='Unkown'}"
+           HorizontalTextAlignment="Center"
+           FontSize="Small" />
+    <ActivityIndicator Margin="5"
+                       IsVisible="{Binding Path=IsBusy,Mode=OneWay}"
+                       IsRunning="{Binding Path=IsBusy,Mode=OneWay}"
+                       Color="{StaticResource Accent}" />
+   </StackLayout>
+   <ListView Grid.Row="1"
+             IsPullToRefreshEnabled="True"
+             ItemTapped="OnReservationTapped"
+             x:Name="ReservationsList"
+             ItemsSource="{Binding  AvailableReservations}"
+             IsRefreshing="{Binding IsLoadingResrvations,Mode=OneWay}"
+             RefreshCommand="{Binding RefreshReservationsCommand}"
+             Header="Available reservations showup here"
+             BackgroundColor="{StaticResource Key=SupBackground}"
+             SelectionMode="None">
+    <ListView.ItemTemplate>
+     <DataTemplate>
+      <ViewCell>
+       <ViewCell.View>
+        <StackLayout Padding="5"
+                     Orientation="Horizontal"
+                     BackgroundColor="{StaticResource BarBackground}">
+         <Image HorizontalOptions="Center"
+                IsVisible="{Binding Path=IsAvailable,FallbackValue={x:Type x:Boolean},Mode=OneWay}"
+                HeightRequest="80"
+                Source="date.png" />
+         <Image HorizontalOptions="Center"
+                HeightRequest="70"
+                IsVisible="{Binding Path=IsAvailable,Mode=OneWay,Converter={StaticResource Key=ReverseBool}}"
+                Source="expired.png" />
+         <StackLayout>
+          <Label Text="{Binding Path=ID,Mode=OneWay,StringFormat='{}Reservation {0}',FallbackValue='Reservation'}" />
+          <Label Text="{Binding Path=Room_Id,Mode=OneWay,StringFormat='{}Room {0}',FallbackValue='Room'}" />
+          <Label Text="{Binding Path=StartDate,Mode=OneWay,StringFormat='{}On {0}',FallbackValue='On 2010/15/4 5:50:10'}" />
+          <Label   Text="{Binding Path=Days,Mode=OneWay,StringFormat='{}For {0} day/s',FallbackValue='For 12 day/s'}" />
+          <Label   TextColor="Orange"
+                 Text="{Binding Path=ReadableTimeLeft,Mode=OneWay,TargetNullValue='Expired',FallbackValue='For 12 day/s'}" />
+          <Label TextColor="GreenYellow"
+                 FontSize="Small"
+                 Text="{Binding Path=TotalPrice,Mode=OneWay,StringFormat='{}Total of {0}$',FallbackValue='Total of 120$'}" />
+         </StackLayout>
+        </StackLayout>
+       </ViewCell.View>
+      </ViewCell>
+     </DataTemplate>
+    </ListView.ItemTemplate>
+   </ListView>
+   <StackLayout IsVisible="{Binding Path=AvailableReservations.HasItems,Converter={StaticResource ReverseBool}}"
+                Padding="10"
+                BackgroundColor="{StaticResource  BarBackground}"
+                Grid.Row="1"
+                VerticalOptions="Center">
+    <Image Source="emptymain.png"
+           HeightRequest="150" />
+    <Label HorizontalTextAlignment="Center"
+           FontSize="Medium"
+           Text="You dont have any active reservations yet"
+           FontAttributes="Bold" />
+   </StackLayout>
+  </Grid>
+ </ContentPage.Content>
+</ContentPage>

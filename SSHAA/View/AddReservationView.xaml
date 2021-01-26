@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:vm="clr-namespace:SSHAA.VM"
+             xmlns:local="clr-namespace:SSHAA"
+             BindingContext="{Static vm:AppData.Instance}"
+             Title="Booking a room"
+             BackgroundColor="{StaticResource      BarBackground}"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SSHAA.View.AddReservationView">
+ <ContentPage.ToolbarItems>
+  <ToolbarItem Text="Refresh"
+               Icon="refresh"
+               Command="{Binding Path=RefreshRoomsCommand}" />
+ </ContentPage.ToolbarItems>
+
+ <StackLayout>
+
+  <ListView IsPullToRefreshEnabled="True"
+            ItemSelected="OnRoomSelectinChanged"
+            x:Name="RoomsList"
+            IsEnabled="{Binding IsLoadingRooms,Mode=OneWay,Converter={StaticResource ReverseBool}}"
+            Header="Select a room"
+            Footer="{Binding Path=Rooms.Count,StringFormat='{}{0} room/s available',FallbackValue='No rooms available '}"
+            SelectionMode="Single"
+            BackgroundColor="{StaticResource Key=SupBackground}"
+            IsRefreshing="{Binding IsLoadingRooms,Mode=OneWay}"
+            RefreshCommand="{Binding RefreshRoomsCommand}"
+            HasUnevenRows="true"
+            ItemsSource="{Binding Path=Rooms}">
+   <ListView.ItemTemplate>
+    <DataTemplate>
+     <ViewCell>
+      <ViewCell.View>
+       <StackLayout Padding="5"
+                    Orientation="Horizontal" >
+        <Image Source="room.png"
+               HeightRequest="50" />
+        <StackLayout>
+         <Label Text="{Binding Path=ID,Mode=OneWay,StringFormat='Room {0}'}" />
+         <Label Text="{Binding Path=Description,Mode=OneWay}"
+                TextColor="Orange" />
+         <Label Text="{Binding Path=Price,Mode=OneWay,StringFormat='{}{0}$ pernight'}"
+                TextColor="GreenYellow" />
+        </StackLayout>
+       </StackLayout>
+
+      </ViewCell.View>
+     </ViewCell>
+    </DataTemplate>
+   </ListView.ItemTemplate>
+  </ListView>
+ <Label Margin="5" Text="Minimum is one day" />
+  
+  <StackLayout  Orientation="Horizontal"  Padding="5">
+
+   <Image HeightRequest="30" Source="clock"/>
+   <Entry x:Name="DayesBox"
+          Text="1"
+        Unfocused="DayesBox_Unfocused"  TextChanged="OnDayesChanged"
+          HorizontalOptions="Start"
+          HorizontalTextAlignment="Center"
+          WidthRequest="100"
+          Keyboard="Numeric"
+          MaxLength="10"
+          ReturnType="Done"
+          IsSpellCheckEnabled="False"
+          IsTextPredictionEnabled="False" />
+   <Image HeightRequest="30"
+          Margin="50,0,0,0"
+          Source="payment" />
+
+   <Label  x:Name="TotalPriceLabel"
+           VerticalOptions="Center"
+           Margin="20,0,0,0"
+           TextColor="GreenYellow"
+     Text="0 $"  />
+  </StackLayout>
+  <ActivityIndicator IsVisible="{Binding Path=IsBusy,Mode=OneWay}"
+                 Margin="5"    IsRunning="{Binding Path=IsBusy,Mode=OneWay}" />
+  <Button HorizontalOptions="Start"
+        BackgroundColor="{StaticResource  Background}" BorderColor="White"  Margin="10,5,0,10"
+          IsEnabled="{Binding IsLoadingRooms,Mode=OneWay,Converter={StaticResource ReverseBool}}"
+       IsVisible="{Binding Path=IsBusy,Mode=OneWay,Converter={StaticResource ReverseBool}}"
+       Clicked="Reserve"
+          Text="  Confirm  " />
+ </StackLayout>
+</ContentPage>

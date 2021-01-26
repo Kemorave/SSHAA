@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:local="clr-namespace:SSHAA"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SSHAA.View.RecordsView"
+             BindingContext="{Static vm:AppData.Instance}"
+             xmlns:vm="clr-namespace:SSHAA.VM"
+             
+             IsBusy="{Binding Path=IsLoadingRecords,Mode=OneWay}">
+ <ContentPage.ToolbarItems>
+  <ToolbarItem Text="Refresh" Icon="refresh"
+               Command="{Binding Path=RefreshRecordsCommand}" />
+ </ContentPage.ToolbarItems>
+ <ContentPage.Content>
+  <StackLayout>
+   <Label Margin="5"
+          FontSize="Micro"
+          Text="All records here show only minimal info on basic tasks for your own secure, we dont't collect sensative information" />
+   <Picker HorizontalOptions="Start"
+           WidthRequest="150" TitleColor="White" 
+         FontSize="Large"  SelectedItem="{Binding Path=RecordsFilter,Mode=TwoWay}"
+           ItemDisplayBinding="{Binding}"
+           Title="Filter by" >
+    <Picker.Items>
+     <x:String>
+      None
+     </x:String>
+     <x:String>
+      Login
+     </x:String>
+     <x:String>
+      Reservation
+     </x:String>
+     <x:String>
+      Door activity
+     </x:String>
+    </Picker.Items>
+   </Picker>
+   <ListView HasUnevenRows="True"
+             IsPullToRefreshEnabled="True"
+             ItemSelected="OnRecordSelectinChanged"
+             ItemTapped="OnRecordTapped"
+             x:Name="RecordsList"
+             RefreshCommand="{Binding RefreshRecordsCommand}"
+             IsRefreshing="{Binding Path=IsLoadingRecords,Mode=OneWay}"
+             BackgroundColor="{StaticResource Key=SupBackground}"
+             ItemsSource="{Binding Path=Records,Mode=OneWay}"
+             Footer="{Binding Path=Records.Count,Mode=OneWay,StringFormat='{}{0} Records',FallbackValue='No Records '}"
+             SelectionMode="None">
+    <ListView.ItemTemplate>
+     <DataTemplate>
+      <ViewCell>
+       <ViewCell.View>
+        <StackLayout Orientation="Horizontal"
+                     VerticalOptions="Fill"
+                     Padding="5"
+                     BackgroundColor="{StaticResource BarBackground}">
+         <Image Source="records"
+                HeightRequest="50" />
+         <StackLayout>
+          <Label Text="{Binding Path=ID,Mode=OneWay,StringFormat='{}Record {0}',FallbackValue='Record 1'}" />
+          <Label FontSize="Micro"
+                 TextColor="GreenYellow"
+                 Text="{Binding Path=Type,Mode=OneWay,FallbackValue='door activity'}" />
+          <Label TextColor="Orange"
+                 FontSize="Micro"
+                 Text="{Binding Path=Date,Mode=OneWay,FallbackValue='2010/15/4 5:50:10'}" />
+         </StackLayout>
+         <Label Grid.Column="1"
+                TextColor="{StaticResource Accent}"
+                Text="{Binding Path=Content,Mode=OneWay,FallbackValue='User login through door'}" />
+        </StackLayout>
+
+       </ViewCell.View>
+      </ViewCell>
+     </DataTemplate>
+    </ListView.ItemTemplate>
+   </ListView>
+
+  </StackLayout>
+
+ </ContentPage.Content>
+</ContentPage>

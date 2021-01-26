@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:SSHAA"
+             xmlns:vm="clr-namespace:SSHAA.VM"
+             xmlns:model="clr-namespace:HMSDataRepo.Model;assembly=HMSDataRepo"
+             x:Class="SSHAA.View.RegisterView">
+ <ContentPage.BindingContext>
+  <model:People />
+ </ContentPage.BindingContext>
+ <ContentPage.Content>
+  <ScrollView VerticalScrollBarVisibility="Default">
+   <StackLayout BackgroundColor="{StaticResource Key=SupBackground}">
+    <StackLayout BackgroundColor="{StaticResource Key=BarBackground}"
+                 Orientation="Horizontal">
+     <Image HeightRequest="50"
+            Source="register.png" />
+     <Label Text="New account"
+            VerticalOptions="Center"
+            TextColor="{StaticResource Accent }" />
+    </StackLayout>
+    <StackLayout Margin="20">
+     <Label Text="Name" />
+     <Entry x:Name="NameBox"
+            Keyboard="Text"
+            Text="{Binding Path=PersonName,Mode=OneWayToSource}"
+            ReturnType="Next" />
+     <Label Text="Email" />
+     <Entry x:Name="EmailBox"
+            Text="{Binding Path=Email,Mode=OneWayToSource}"
+            Keyboard="Email"
+            ReturnType="Next" />
+     <Label Text="Password" />
+     <Entry x:Name="PasswordBox"
+            Keyboard="Text"
+            IsPassword="True"
+            Text="{Binding Path=Password,Mode=OneWayToSource}"
+            ReturnType="Next" />
+     <Label Text="Re enter password" />
+     <Entry x:Name="PasswordVerificationBox"
+            Keyboard="Text"
+            IsPassword="True" 
+            ReturnType="Done" />
+     <StackLayout Orientation="Horizontal">
+      <Button Clicked="TryRegister"
+              Margin="0,10"
+              Text="Ok"
+              IsEnabled="{Binding Source={Reference IsBActivityInd},Path=IsRunning,Converter={StaticResource ReverseBool}}"
+              HorizontalOptions="Start" />
+      <ActivityIndicator MinimumHeightRequest="40"
+                         BindingContext="{Static vm:AppData.Instance}"
+                         x:Name="IsBActivityInd"
+                         VerticalOptions="Center"
+                         Color="{StaticResource BarBackground}"
+                         HorizontalOptions="Center"
+                         MinimumWidthRequest="40"
+                         IsRunning="{Binding Path=IsBusy,Mode=OneWay}" />
+
+     </StackLayout>
+    </StackLayout>
+
+
+   </StackLayout>
+  </ScrollView>
+ </ContentPage.Content>
+</ContentPage>

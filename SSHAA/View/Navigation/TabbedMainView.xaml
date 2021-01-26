@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+            xmlns:local="clr-namespace:SSHAA"
+            xmlns:vm="clr-namespace:SSHAA.VM"
+            BindingContext="{Static vm:AppData.Instance}"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:view="clr-namespace:SSHAA.View"
+            Title="SSH"
+            BarBackgroundColor="{StaticResource BarBackground}"
+            BarTextColor="{StaticResource Accent}"
+             x:Name="TabControl"
+            Icon="ssh.png"  
+            x:Class="SSHAA.View.Navigation.TabbedMainView">
+
+ <NavigationPage Icon="page_ssh.png">
+  <x:Arguments>
+   <view:MainView Icon="page_ssh.png"  Title="Home"/>
+  </x:Arguments>
+ </NavigationPage>
+
+ <NavigationPage Icon="page_reservation.png">
+  <x:Arguments>
+   <view:ReservationsView Title="Booking" Icon="page_reservation.png" />
+  </x:Arguments>
+ </NavigationPage>
+
+ <NavigationPage  Icon="page_records.png">
+  <x:Arguments>
+   <view:RecordsView Title="Records"  Icon="page_records.png"/>
+  </x:Arguments>
+ </NavigationPage>
+</TabbedPage>

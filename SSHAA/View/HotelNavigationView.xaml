@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:local="clr-namespace:SSHAA"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       Title="About SSH"      x:Class="SSHAA.View.HotelNavigationView">
+ <ContentPage.Content>
+  <ScrollView>
+   <ScrollView.Resources>
+    <Style TargetType="StackLayout">
+     <Setter Property="BackgroundColor"
+             Value="{StaticResource     SupBackground }" />
+    </Style>
+   </ScrollView.Resources>
+   <StackLayout BackgroundColor="{StaticResource Background}">
+    <StackLayout Margin="5"
+                 Padding="5">
+     <StackLayout Margin="5"
+                  Orientation="Horizontal">
+      <Image Margin="2"
+             HeightRequest="80"
+             Source="ssh.png" />
+      <Label Text="SSH"
+             VerticalOptions="Center" 
+             FontSize="Large" />
+     </StackLayout>
+
+     <Label Text="Self serving hotel was created in 2020 ,
+our goal is to serve people an indepandant and secure space for cheap prices and make 
+it available in time with minimal credential data requirments to everyone.
+     " />
+    </StackLayout>
+    <StackLayout Margin="5"
+                 Padding="5">
+     <Label Text="Hotel front"
+            FontSize="Large"
+            FontAttributes="Bold" />
+     <Label Text="The building is in london (81 Kensington Gardens Square Bayswater) you are always welcome to stay" />
+     <Image Margin="3"
+            HeightRequest="180"
+            Source="hotel1.jpg"
+            Aspect="AspectFill" />
+     <Image Margin="3"
+            HeightRequest="180"
+            Source="hotel2.jpg"
+            Aspect="AspectFill" />
+    </StackLayout>
+    <StackLayout Margin="5"
+                 Padding="5">
+     <Label Text="Rooms"
+             FontSize="Large"
+            FontAttributes="Bold" />
+     <Label Text="All basic life needs in a small convienet space" />
+     <Image Margin="3"
+            Source="standardroom.png"
+            Aspect="AspectFill" />
+    </StackLayout>
+    <StackLayout Margin="5"
+                 Padding="5">
+     <Label  Text="Hotel mapping"
+             FontSize="Large"
+             FontAttributes="Bold" />
+     <Label Text="Rooms start from index one from the left, City view from the west and beach on the east, the emergency exits is on south and north of the building" />
+     <Image Aspect="AspectFit"
+            HeightRequest="180"
+            Source="floorplans.png" />
+    </StackLayout>
+   </StackLayout>
+  </ScrollView>
+ </ContentPage.Content>
+</ContentPage>

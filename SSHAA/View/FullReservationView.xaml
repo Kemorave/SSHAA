@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:model="clr-namespace:HMSDataRepo.Model;assembly=HMSDataRepo"
+             x:Name="Page"
+             xmlns:local="clr-namespace:SSHAA"
+             x:Class="SSHAA.View.FullReservationView">
+ <ContentPage.ToolbarItems>
+  <ToolbarItem       Clicked="ShareImage"
+                      Text="Save and share" Icon="share" />
+  <ToolbarItem    Clicked="SaveToGallery"
+                  Icon="gallery"  Text="Save"  />
+
+ </ContentPage.ToolbarItems>
+ <ContentPage.BindingContext>
+  <model:Reservations />
+ </ContentPage.BindingContext>
+ <ContentPage.Content>
+  <ScrollView BackgroundColor="{StaticResource   SupBackground }"
+                >
+   <StackLayout  Padding="5">
+    <Label x:Name="QrLabel"
+           Text="QR code"  />
+    <Grid>
+     <Image x:Name="QRImage"
+            HorizontalOptions="Center"
+            BackgroundColor="White"
+            HeightRequest="300"
+            WidthRequest="300"
+            Aspect="AspectFill"
+            IsVisible="True" />
+     <ActivityIndicator x:Name="Aind"
+                        HorizontalOptions="Center"
+                        IsRunning="True"
+                        WidthRequest="60"
+                        HeightRequest="60" />
+    </Grid>
+     <Label Text="{Binding Path=Days,StringFormat='Usage for {0} day/s',FallbackValue=12}" />
+    <Label TextColor="GreenYellow"
+           Text="{Binding Path=TotalPrice,StringFormat='Payment {0}$',FallbackValue=120}" />
+    <Label Text="{Binding Path=ReadableTimeLeft,StringFormat='{}{0} Left'}"
+           TextColor="Orange" />
+   </StackLayout>
+  </ScrollView>
+ </ContentPage.Content>
+</ContentPage>
