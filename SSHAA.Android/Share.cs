@@ -18,7 +18,7 @@ namespace SSHAA.Droid
         public Task Show(string title, string message, string filePath)
         {
             var extension = filePath.Substring(filePath.LastIndexOf(".") + 1).ToLower();
-           
+            string contentType;
             switch (extension)
             {
                 case "pdf":

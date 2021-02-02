@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SSHAA.View.ComplainsView">
+    <ContentPage.Content>
+        <StackLayout VerticalOptions="Start" BackgroundColor="{StaticResource    SupBackground}" Padding="5">
+   <Image HorizontalOptions="Center" Source="confeused.png"/>
+   <Label FontSize="Default" Text="We are sorry for any inconvenience that you might have incountered please let us know what is wrong"
+       />
+      
+   <Entry  x:Name="ReportView" HeightRequest="200" BackgroundColor="White" ReturnType="Done" Keyboard="Text"/>
+   <Label FontSize="Medium"
+          Text="All reports are continued from your email you will hear from our staff in moments later" />
+   <Button Clicked="SubmitReport" Text="Submit"/>
+  </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
