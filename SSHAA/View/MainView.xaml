@@ -21,7 +21,12 @@
                Clicked="DeleteAccount"
                Order="Secondary"
                IsDestructive="True" />
-  <ToolbarItem Text="Logut"
+  <ToolbarItem Text="Somthing is wrong ?"
+               Icon="usersettings"
+               Clicked="OpenComplains"
+               Order="Secondary"
+               IsDestructive="True" />
+  <ToolbarItem Text="Logout"
                Icon="usersettings"
                Clicked="Logout"
                Order="Secondary"
@@ -54,7 +59,7 @@
              IsPullToRefreshEnabled="True"
              ItemTapped="OnReservationTapped"
              x:Name="ReservationsList"
-             ItemsSource="{Binding  AvailableReservations}"
+             ItemsSource="{Binding  AvailableReservations,Mode=OneWay}"
              IsRefreshing="{Binding IsLoadingResrvations,Mode=OneWay}"
              RefreshCommand="{Binding RefreshReservationsCommand}"
              Header="Available reservations showup here"

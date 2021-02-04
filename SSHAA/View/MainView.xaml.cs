@@ -55,5 +55,11 @@ namespace SSHAA.View
 
             }
         }
+
+        private void OpenComplains(object sender, EventArgs e)
+        {
+            Navigation.PushModalAsync(new ComplainsView());
+
+        }
     }
 }

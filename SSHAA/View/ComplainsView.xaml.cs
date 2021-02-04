@@ -17,9 +17,12 @@ namespace SSHAA.View
             InitializeComponent();
         }
 
-        private void SubmitReport(object sender, EventArgs e)
+        private async void SubmitReport(object sender, EventArgs e)
         {
-
+            if (await VM.AppData.Instance.SendComplaint(this.ComplaintReportBox.Text))
+            {
+               await Navigation.PopModalAsync();
+            }
         }
     }
 }

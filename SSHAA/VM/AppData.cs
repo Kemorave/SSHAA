@@ -230,7 +230,38 @@ namespace SSHAA.VM
             }
         }
 
+        public async Task<bool> SendComplaint(string complain)
+        {
+            if (IsSendingReport)
+            {
+                return false;
+            }
+            IsSendingReport = true;
+            return await Task.Run(() =>
+            {
+                try
+                {
+                    if (string.IsNullOrEmpty(complain))
+                    {
+                        Toast = "Please fill in the form";
+                        return false;
+                    }
+                    HMSDataRepo.EmailFunc.SendComplaintMessage(CurrentLoginInfo.Email, CurrentLoginInfo.Email, CurrentLoginInfo.ID.ToString(), complain);
+                    Toast = "Your complaint is being proccesed";
+                    return true;
+                }
+                catch (Exception e)
+                {
 
+                    ErrorDialog(e.Message);
+                    return false;
+                }
+                finally
+                {
+                    IsSendingReport = false;
+                }
+            });
+        }
         public async Task<bool> RegisterUser(People obj)
         {
             IsBusy = true;
@@ -511,6 +542,14 @@ namespace SSHAA.VM
                 isLoadingRooms = value; RaisePropertyChanged();
             }
         }
+        public bool IsSendingReport
+        {
+            get => isSendingReport;
+            set
+            {
+                isSendingReport = value; RaisePropertyChanged();
+            }
+        }
 
         public bool IsLoggedIn
         {
@@ -548,6 +587,7 @@ namespace SSHAA.VM
         private bool isLoadingRecords;
         private bool isLoadingResrvations;
         private bool isLoadingRooms;
+        private bool isSendingReport;
 
 
 
